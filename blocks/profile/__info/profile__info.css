@@ -1,0 +1,10 @@
+.profile__info{
+  align-self: center;
+  display: grid;
+  row-gap: 18px;
+  column-gap: 18px;
+  grid-template-columns: minmax(min-content, 294px) minmax(min-content, max-content);
+  grid-template-rows: minmax(39px, max-content) minmax(min-content, max-content);
+  padding-left: 30px;
+
+}

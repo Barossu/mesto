@@ -1,0 +1,8 @@
+.profile__edit-button{
+  align-self: self-end;
+  transition: opacity 0.2s linear;
+}
+
+.profile__edit-button:hover{
+  opacity: 0.6;
+}
