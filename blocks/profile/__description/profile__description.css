@@ -7,3 +7,12 @@
   grid-column-start: 1;
   grid-column-end: 3;
 }
+
+@media screen and (max-width: 650px) {
+  .profile__description{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+    text-align: center;
+  }
+}
