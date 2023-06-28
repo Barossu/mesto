@@ -1,6 +1,7 @@
 .profile__edit-button{
   align-self: self-end;
   transition: opacity 0.2s linear;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover{
