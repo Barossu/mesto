@@ -2,17 +2,17 @@
   align-self: center;
   display: flex;
   flex-direction: row;
-  column-gap: 19px;
   padding-left: 30px;
   position: relative;
   z-index: 1;
+  column-gap: 19px;
 }
 
 @media screen and (max-width: 650px) {
   .profile__info{
     padding: 0;
-    padding-top: 19px;
     column-gap: 11px;
+    padding-top: 19px;
     margin-left: 27px;
   }
 }

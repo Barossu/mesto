@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .elements__element{
+  .page{
     max-width: 320px;
     margin: auto;
   }

@@ -1,32 +1,32 @@
-let page = document.querySelector('.page');
-let editbutton = page.querySelector('.profile__edit-button');
-let popup = page.querySelector('.popup');
-let closebutton = popup.querySelector('.popup__close-icon');
-let formelement = popup.querySelector('.popup__form');
-let nameinput = popup.querySelector('.popup__input_type_name');
-let jobinput = popup.querySelector('.popup__input_type_description');
-let savebutton = popup.querySelector('.popup__button');
-let profilename = page.querySelector('.profile__name');
-let profiledescription = page.querySelector('.profile__description');
+let Page = document.querySelector('.page');
+let EditButton = Page.querySelector('.profile__edit-button');
+let Popup = Page.querySelector('.popup');
+let CloseButton = Popup.querySelector('.popup__close-icon');
+let FormElement = Popup.querySelector('.popup__form');
+let NameInput = Popup.querySelector('.popup__input_type_name');
+let JobInput = Popup.querySelector('.popup__input_type_description');
+let SaveButton = Popup.querySelector('.popup__button');
+let ProfileName = Page.querySelector('.profile__name');
+let ProfileDescription = Page.querySelector('.profile__description');
 
 function handleFormSubmit (evt) {
   evt.preventDefault();
-  profilename.textContent = nameinput.value;
-  profiledescription.textContent = jobinput.value;
-  popup.classList.remove('popup_opened');
+  ProfileName.textContent = NameInput.value;
+  ProfileDescription.textContent = JobInput.value;
+  Popup.classList.remove('popup_opened');
 }
 
 function toggleform() {
-  if (popup.classList.contains('popup_opened') !== true) {
-    popup.classList.add('popup_opened');
-    nameinput.value = profilename.textContent;
-    jobinput.value = profiledescription.textContent;
+  if (Popup.classList.contains('popup_opened') !== true) {
+    Popup.classList.add('popup_opened');
+    NameInput.value = ProfileName.textContent;
+    JobInput.value = ProfileDescription.textContent;
   }
   else {
-    popup.classList.remove('popup_opened');
+    Popup.classList.remove('popup_opened');
   }
 }
 
-editbutton.addEventListener('click', toggleform);
-closebutton.addEventListener('click', toggleform);
-formelement.addEventListener('submit', handleFormSubmit);
+EditButton.addEventListener('click', toggleform);
+CloseButton.addEventListener('click', toggleform);
+FormElement.addEventListener('submit', handleFormSubmit);
