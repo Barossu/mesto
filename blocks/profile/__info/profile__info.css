@@ -1,9 +1,8 @@
 .profile__info{
-  max-width: 294px;
   align-self: center;
   display: flex;
-  flex-direction: column;
-  row-gap: 7px;
+  flex-direction: row;
+  column-gap: 19px;
   padding-left: 30px;
   position: relative;
   z-index: 1;
@@ -12,6 +11,8 @@
 @media screen and (max-width: 650px) {
   .profile__info{
     padding: 0;
-    padding-top: 27px;
+    padding-top: 19px;
+    column-gap: 11px;
+    margin-left: 27px;
   }
 }

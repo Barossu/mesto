@@ -1,6 +1,17 @@
 .profile__add-button{
+  background: none;
+  border: none;
+  background-image: url(../../../images/Vector.svg);
+  background-size: contain;
   width: 22px;
   height: 22px;
   object-fit: contain;
   margin: auto;
+}
+
+@media screen and (max-width: 650px) {
+  .profile__add-button{
+    width: 16px;
+    height: 16px;
+  }
 }

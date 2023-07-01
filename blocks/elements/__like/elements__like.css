@@ -1,4 +1,6 @@
 .elements__like{
+  background: none;
+  border: none;
   background-image: url(../../../images/like.svg);
   background-size: cover;
   background-repeat: no-repeat;
