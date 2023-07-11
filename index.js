@@ -4,7 +4,8 @@ const popupEditProfile = page.querySelector('#popup-edit-profile');
 const popupAddPlace = page.querySelector('#popup-add-place');
 const editFormCloseButton = popupEditProfile.querySelector('#edit-close-button');
 const addFormCloseButton = popupAddPlace.querySelector('#add-close-button');
-const formElement = page.querySelector('.popup__form');
+const editFormElement = page.querySelector('#popup-edit-form');
+const addFormElement = page.querySelector('#popup-add-form');
 const nameInput = page.querySelector('.popup__input_type_name');
 const jobInput = page.querySelector('.popup__input_type_description');
 const saveButton = page.querySelector('.popup__button');
@@ -50,7 +51,15 @@ function handleFormSubmit (evt) {
   popupEditProfile.classList.remove('popup_opened');
 }
 
-// Идея добавить из формы данные и сделать переменную как в массиве исходном и как то потом подрубить у нему функцию которая уже есть(75 строка)
+function addFormSubmit (evt) {
+  evt.preventDefault();
+  let addForm = {
+    name: placeInput.value,
+    link: linkInput.value
+  };
+  addPlace(addForm);
+  popupAddPlace.classList.remove('popup_opened');
+}
 
 // Функция переключения формы редактирования профиля
 function toggleProfileForm() {
@@ -68,6 +77,8 @@ function toggleProfileForm() {
 function toggleAddForm() {
   if (popupAddPlace.classList.contains('popup_opened') !== true) {
     popupAddPlace.classList.add('popup_opened');
+    placeInput.value = '';
+    linkInput.value = '';
   }
   else {
     popupAddPlace.classList.remove('popup_opened');
@@ -93,20 +104,8 @@ initialCards.forEach(addPlace);
 
 editButton.addEventListener('click', toggleProfileForm);
 editFormCloseButton.addEventListener('click', toggleProfileForm);
-formElement.addEventListener('submit', handleFormSubmit);
+editFormElement.addEventListener('submit', handleFormSubmit);
 addButton.addEventListener('click', toggleAddForm);
 addFormCloseButton.addEventListener('click', toggleAddForm);
-
-
-// балуюсь
-// const fff = {
-//   name:'',
-//   link:''
-// };
-// placeInput.value = 'Рома';
-// linkInput.value = 'https://krasivosti.pro/uploads/posts/2021-10/1634681353_26-krasivosti-pro-p-svinki-zhivotnie-krasivo-foto-30.jpg';
-// fff.name = placeInput.value;
-// fff.link = linkInput.value;
-// console.log(fff);
-// addPlace(fff)
+addFormElement.addEventListener('submit', addFormSubmit);
 
