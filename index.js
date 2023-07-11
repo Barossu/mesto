@@ -2,8 +2,10 @@ const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
 const popupEditProfile = page.querySelector('#popup-edit-profile');
 const popupAddPlace = page.querySelector('#popup-add-place');
+const popupCard = page.querySelector('#popup-card')
 const editFormCloseButton = popupEditProfile.querySelector('#edit-close-button');
 const addFormCloseButton = popupAddPlace.querySelector('#add-close-button');
+const cardCloseButton = popupCard.querySelector('#card-close-button')
 const editFormElement = page.querySelector('#popup-edit-form');
 const addFormElement = page.querySelector('#popup-add-form');
 const nameInput = page.querySelector('.popup__input_type_name');
@@ -15,6 +17,8 @@ const cards = page.querySelector('.elements');
 const addButton = page.querySelector('.profile__add-button');
 const placeInput = page.querySelector('#place-name-field');
 const linkInput = page.querySelector('#image-link-field');
+const imagePopup = page.querySelector('.popup__opened-image');
+const textPopup = page.querySelector('.popup__opened-place');
 
 const initialCards = [
   {
@@ -51,6 +55,7 @@ function handleFormSubmit (evt) {
   popupEditProfile.classList.remove('popup_opened');
 }
 
+// Функция добавления карточки
 function addFormSubmit (evt) {
   evt.preventDefault();
   let addForm = {
@@ -95,12 +100,18 @@ function addPlace(item) {
   placeElement.querySelector('.elements__place').textContent = item.name;
 
   placeElement.querySelector('.elements__like').addEventListener('click', evt => evt.target.classList.toggle('elements__like_active'));
-  placeElement.querySelector('.elements__remove-button').addEventListener('click', evt => evt.target.parentElement.remove())
+  placeElement.querySelector('.elements__remove-button').addEventListener('click', evt => evt.target.parentElement.remove());
+  placeElement.querySelector('.elements__image').addEventListener('click', addImageInPopup);
+  
+  function addImageInPopup() {
+    imagePopup.src = item.link;
+    imagePopup.alt = `Изображение: ${item.name}`;
+    textPopup.textContent = item.name;
+    popupCard.classList.add('popup_opened');
+  }
   cards.prepend(placeElement);
 }
-
 initialCards.forEach(addPlace);
-
 
 editButton.addEventListener('click', toggleProfileForm);
 editFormCloseButton.addEventListener('click', toggleProfileForm);
@@ -108,4 +119,4 @@ editFormElement.addEventListener('submit', handleFormSubmit);
 addButton.addEventListener('click', toggleAddForm);
 addFormCloseButton.addEventListener('click', toggleAddForm);
 addFormElement.addEventListener('submit', addFormSubmit);
-
+cardCloseButton.addEventListener('click', () => popupCard.classList.remove('popup_opened'));
