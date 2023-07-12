@@ -35,7 +35,7 @@
     </footer>
     <div class="popup" id="popup-edit-profile">
       <div class="popup__container">
-        <button type="button" id="edit-close-button" class="popup__close-icon" name="close-button"></button>
+        <button type="button" class="popup__close-icon" name="close-button"></button>
         <h2 class="popup__form-text">Редактировать профиль</h2>
         <form class="popup__form" id="popup-edit-form" name="profile-form">
           <input type="text"  name="name-field" class="popup__input popup__input_type_name" value="Жак-Ив Кусто" placeholder="Введите имя">
@@ -46,7 +46,7 @@
     </div>
     <div class="popup" id="popup-add-place">
       <div class="popup__container">
-        <button type="button" id="add-close-button" class="popup__close-icon" name="close-button"></button>
+        <button type="button" class="popup__close-icon" name="close-button"></button>
         <h2 class="popup__form-text">Новое место</h2>
         <form class="popup__form" id="popup-add-form" name="add-form">
           <input type="text" id="place-name-field" name="place-name-field" class="popup__input" value="" placeholder="Название">
@@ -57,16 +57,16 @@
     </div>
     <div class="popup popup_darker" id="popup-card">
       <div class="popup__image-container">
-        <button type="button" id="card-close-button" class="popup__close-icon" name="close-button"></button>
-        <img class="popup__opened-image" src="&nbsp;" alt="&nbsp;">
-        <h2 class="popup__opened-place"></h2>
+        <button type="button" class="popup__close-icon" name="close-button"></button>
+        <img class="popup__opened-image" src="#" alt="&nbsp;">
+        <h2 class="popup__opened-place">&nbsp;</h2>
       </div>
     </div>
   </div>
 
   <template id="template">
     <article class="elements__element">
-      <img class="elements__image" alt="&nbsp;" src="&nbsp;">
+      <img class="elements__image" src="" alt="">
       <button type="button" class="elements__remove-button" name="remove-button"></button>
       <div class="elements__info">
         <h2 class="elements__place"></h2>
