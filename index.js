@@ -15,7 +15,6 @@ const placeInput = page.querySelector('#place-name-field');
 const linkInput = page.querySelector('#image-link-field');
 const imagePopup = page.querySelector('.popup__opened-image');
 const textPopup = page.querySelector('.popup__opened-place');
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -43,9 +42,22 @@ const initialCards = [
   }
 ];
 
-function closePopup(anyPopup){
-  anyPopup.classList.remove('popup_opened');
+// Функция поиска открытого попапа
+
+function selectPopup(){
+  const allPopup = Array.from(document.querySelectorAll('.popup'));
+  return allPopup.filter(pop => {
+    if (pop.classList.contains('popup_opened')){
+      return pop.classList.contains('popup_opened');
+    }
+  })[0];
 };
+
+function closePopup(){
+  const selectedPopup = selectPopup();
+  selectedPopup.classList.remove('popup_opened');
+}
+
 
 function openPopup(anyPopup){
   anyPopup.classList.add('popup_opened');
@@ -54,8 +66,7 @@ function openPopup(anyPopup){
 // Обработчик крестиков
 const closeButtons = page.querySelectorAll('.popup__close-icon');
 closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener('click', () => closePopup());
 })
 
 function renameAndOpenProfileForm(){
@@ -74,7 +85,7 @@ function handleFormSubmit (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
-  closePopup(popupEditProfile);
+  closePopup();
 }
 
 // Функция создания карточки
@@ -111,7 +122,7 @@ function addFormSubmit (evt) {
   };
 
   cards.prepend(createCard(addForm));
-  closePopup(popupAddPlace);
+  closePopup();
 }
 
 editButton.addEventListener('click', renameAndOpenProfileForm);
@@ -119,3 +130,17 @@ addButton.addEventListener('click', resetAndOpenAddForm);
 
 editFormElement.addEventListener('submit', handleFormSubmit);
 addFormElement.addEventListener('submit', addFormSubmit);
+
+// Закрытие попапа на esc
+page.addEventListener('keydown', evt => {
+  if (evt.key === 'Escape'){
+    closePopup();
+  }
+})
+
+// Закрытие попапа кликом на оверлей
+page.addEventListener('click', (evt) => {
+  if (evt.target === selectPopup()){
+    closePopup();
+  }
+})
