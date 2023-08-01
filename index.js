@@ -139,7 +139,7 @@ page.addEventListener('keydown', evt => {
 })
 
 // Закрытие попапа кликом на оверлей
-page.addEventListener('click', (evt) => {
+page.addEventListener('mousedown', (evt) => {
   if (evt.target === selectPopup()){
     closePopup();
   }
