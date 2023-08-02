@@ -15,6 +15,8 @@ const placeInput = page.querySelector('#place-name-field');
 const linkInput = page.querySelector('#image-link-field');
 const imagePopup = page.querySelector('.popup__opened-image');
 const textPopup = page.querySelector('.popup__opened-place');
+const template = document.querySelector('#template').content;
+const saveAddFromButton = popupAddPlace.querySelector('.popup__button');
 const initialCards = [
   {
     name: 'Архыз',
@@ -42,31 +44,30 @@ const initialCards = [
   }
 ];
 
-// Функция поиска открытого попапа
-
-function selectPopup(){
-  const allPopup = Array.from(document.querySelectorAll('.popup'));
-  return allPopup.filter(pop => {
-    if (pop.classList.contains('popup_opened')){
-      return pop.classList.contains('popup_opened');
-    }
-  })[0];
-};
-
-function closePopup(){
-  const selectedPopup = selectPopup();
+function closePopup(selectedPopup){
   selectedPopup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 
-function openPopup(anyPopup){
-  anyPopup.classList.add('popup_opened');
+function openPopup(selectedPopup){
+  selectedPopup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 };
+
+// Закрытие попапа на esc
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup)
+  }
+}
 
 // Обработчик крестиков
 const closeButtons = page.querySelectorAll('.popup__close-icon');
 closeButtons.forEach((button) => {
-  button.addEventListener('click', () => closePopup());
+  const buttonsPopup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(buttonsPopup));
 })
 
 function renameAndOpenProfileForm(){
@@ -78,19 +79,21 @@ function renameAndOpenProfileForm(){
 function resetAndOpenAddForm() {
   openPopup(popupAddPlace);
   addFormElement.reset();
+
+
+  addButtonState(saveAddFromButton, classListObject)
 };
 
 // Функция сохранения новых данных профиля
-function handleFormSubmit (evt) {
+function editFormSubmit (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
-  closePopup();
+  closePopup(popupEditProfile);
 }
 
 // Функция создания карточки
 function createCard(item) {
-  const template = document.querySelector('#template').content;
   const placeElement = template.querySelector('.elements__element').cloneNode(true);
 
   placeElement.querySelector('.elements__image').src = item.link;
@@ -98,7 +101,7 @@ function createCard(item) {
   placeElement.querySelector('.elements__place').textContent = item.name;
 
   placeElement.querySelector('.elements__like').addEventListener('click', evt => evt.target.classList.toggle('elements__like_active'));
-  placeElement.querySelector('.elements__remove-button').addEventListener('click', evt => evt.target.parentElement.remove());
+  placeElement.querySelector('.elements__remove-button').addEventListener('click', () => placeElement.remove());
   placeElement.querySelector('.elements__image').addEventListener('click', () => {
     imagePopup.src = item.link;
     imagePopup.alt = `Изображение: ${item.name}`;
@@ -122,25 +125,23 @@ function addFormSubmit (evt) {
   };
 
   cards.prepend(createCard(addForm));
-  closePopup();
+  closePopup(popupAddPlace);
 }
 
 editButton.addEventListener('click', renameAndOpenProfileForm);
 addButton.addEventListener('click', resetAndOpenAddForm);
 
-editFormElement.addEventListener('submit', handleFormSubmit);
+editFormElement.addEventListener('submit', editFormSubmit);
 addFormElement.addEventListener('submit', addFormSubmit);
 
-// Закрытие попапа на esc
-page.addEventListener('keydown', evt => {
-  if (evt.key === 'Escape'){
-    closePopup();
-  }
-})
 
 // Закрытие попапа кликом на оверлей
-page.addEventListener('mousedown', (evt) => {
-  if (evt.target === selectPopup()){
-    closePopup();
+function closePopupByClickOnOverlay(evt, closePopupFunction, anyPopup) {
+  if (evt.target.classList.contains('popup')){
+    closePopupFunction(anyPopup);
   }
-})
+}
+
+popupEditProfile.addEventListener('mousedown', evt => closePopupByClickOnOverlay(evt, closePopup, popupEditProfile));
+popupAddPlace.addEventListener('mousedown',  evt => closePopupByClickOnOverlay(evt, closePopup, popupAddPlace));
+popupCard.addEventListener('mousedown',  evt => closePopupByClickOnOverlay(evt, closePopup, popupCard));
