@@ -14,6 +14,7 @@ export class Card {
   generateCard(){
     this._element = this._getTemplate();
     this._imageElement = this._element.querySelector('.elements__image');
+    this._like = this._element.querySelector('.elements__like');
 
     this._setEventListeners();
     
@@ -29,11 +30,11 @@ export class Card {
   };
 
   _toggleLike(){
-    this._element.querySelector('.elements__like').classList.toggle('elements__like_active')
+    this._like.classList.toggle('elements__like_active')
   }
 
   _setEventListeners(){
-    this._element.querySelector('.elements__like').addEventListener('click', () => this._toggleLike());
+    this._like.addEventListener('click', () => this._toggleLike());
     this._element.querySelector('.elements__remove-button').addEventListener('click', () => this._element.remove());
     this._imageElement.addEventListener('click', () => {
       this._openImagePopup();
