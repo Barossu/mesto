@@ -1,6 +1,6 @@
 import Card from "./Сard.js"; 
 import Section from "./Section.js";
-import FormValidator from "./FormValidator.js";
+import FormValidator from "./Validator.js";
 import { validationConfig, initialCards } from "./constants.js"
 
 const page = document.querySelector('.page');
