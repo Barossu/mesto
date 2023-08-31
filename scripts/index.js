@@ -1,5 +1,6 @@
-import { Card } from "./Сard.js";
-import { FormValidator } from "./formvalidator.js";
+import Card from "./Сard.js"; 
+import Section from "./Section.js";
+import FormValidator from "./FormValidator.js";
 import { validationConfig, initialCards } from "./constants.js"
 
 const page = document.querySelector('.page');
@@ -75,25 +76,36 @@ function editFormSubmit (evt) {
   closePopup(popupEditProfile);
 }
 
-// Добавление массива карточек
-initialCards.forEach((item) => {
-  const card = new Card(item, '#template', handleOpenImagePopup);
-  const cardElement = card.generateCard();
-  
-  cards.prepend(cardElement);
-})
+const cardsFromArray = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#template', handleOpenImagePopup);
+    const cardElement = card.generateCard();
+    cardsFromArray.addItem(cardElement);
+  }
+}, '.elements');
+
+cardsFromArray.renderItem();
 
 // Функция добавления карточки пользователем
 function addFormSubmit (evt) {
   evt.preventDefault();
-  const addForm = {
+  const addForm = [{
     name: placeInput.value,
     link: linkInput.value
-  };
+  }];
 
-  const card = new Card(addForm, '#template', handleOpenImagePopup);
-  const cardElement = card.generateCard();
-  cards.prepend(cardElement);
+  const cardsFromAddForm = new Section({
+    data: addForm,
+    renderer: (item) => {
+      const card = new Card(item, '#template', handleOpenImagePopup);
+      console.log(item)
+      const cardElement = card.generateCard();
+      cardsFromAddForm.addItem(cardElement);
+    }
+  }, '.elements')
+
+  cardsFromAddForm.renderItem();
   closePopup(popupAddPlace);
 }
 
@@ -104,7 +116,6 @@ addButton.addEventListener('click', resetAndOpenAddForm);
 
 editFormElement.addEventListener('submit', editFormSubmit);
 addFormElement.addEventListener('submit', addFormSubmit);
-
 
 // Закрытие попапа кликом на оверлей
 function closePopupByClickOnOverlay(evt, closePopupFunction, anyPopup) {
