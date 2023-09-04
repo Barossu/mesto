@@ -39,5 +39,5 @@ export default class Card {
     this._imageElement.addEventListener('click', () => {
       this._openImagePopup();
     });
-  }
+  };
 }

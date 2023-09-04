@@ -15,7 +15,7 @@ export default class FormValidator{
     errorElement.classList.add(this._errorClass);
   };
 
-  _hideInputError(inputElement){
+  hideInputError(inputElement){
     const errorElement =  this._form.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = '';
@@ -26,7 +26,7 @@ export default class FormValidator{
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(inputElement);
+      this.hideInputError(inputElement);
     }
   };
 
@@ -41,7 +41,7 @@ export default class FormValidator{
     this._submitButton.setAttribute('disabled', true);
   };
 
-  _enableButton(){
+  enableButton(){
     this._submitButton.classList.remove(this._inactiveButtonClass);
     this._submitButton.removeAttribute('disabled');
   };
@@ -50,7 +50,7 @@ export default class FormValidator{
     if (this._hasInvalidInput()){
       this.disableButton()
     } else {
-      this._enableButton()
+      this.enableButton()
     };
   };
 
