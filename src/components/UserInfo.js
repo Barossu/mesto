@@ -1,9 +1,7 @@
-import { nameInput, jobInput } from './constants.js'
-
 export default class UserInfo{
-  constructor({name, info}){
-    this._profileName = document.querySelector(name);
-    this._profileInfo = document.querySelector(info);
+  constructor({profileNameSelector, profileInfoSelector}){
+    this._profileName = document.querySelector(profileNameSelector);
+    this._profileInfo = document.querySelector(profileInfoSelector);
   }
 
   getUserInfo(){
@@ -11,8 +9,8 @@ export default class UserInfo{
     return this._userInfo
   };
 
-  setUserInfo(){  
-    this._profileName.textContent = nameInput.value;
-    this._profileInfo.textContent = jobInput.value;
+  setUserInfo(inputName, inputInfo){  
+    this._profileName.textContent = inputName.value;
+    this._profileInfo.textContent = inputInfo.value;
   };
 }

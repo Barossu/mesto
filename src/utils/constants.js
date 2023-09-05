@@ -39,7 +39,5 @@ export const editButton = document.querySelector('.profile__edit-button');
 export const editFormElement = document.querySelector('#popup-edit-form');
 export const addFormElement = document.querySelector('#popup-add-form');
 export const addButton = document.querySelector('.profile__add-button');
-export const imagePopup = document.querySelector('.popup__opened-image');
-export const textPopup = document.querySelector('.popup__opened-place');
 export const profileAvatar = document.querySelector('.profile__avatar');
 export const headerLogo = document.querySelector('.header__logo');
