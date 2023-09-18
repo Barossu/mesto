@@ -1,6 +1,6 @@
 .popup__button{
   padding: 0;
-  margin: 18px 36px 37px 36px;
+  margin: 18px 36px 36px 36px;
   width: calc(100% - 36px - 36px);
   height: 50px;
   border: none;

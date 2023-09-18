@@ -14,6 +14,6 @@ export default class Section {
   };
 
   renderCard(item){
-    this._renderer(item);
+    this._renderer(item)
   }
 }
