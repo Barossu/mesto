@@ -6,11 +6,6 @@ export default class PopupConfirm extends Popup{
     this._form = this._popup.querySelector('.popup__form');
   };
 
-  open(cardId){
-    this._cardId = cardId
-    super.open();
-  }
-
   submitCallback(deleteFunction){
     this._formSubmit = deleteFunction
   }
@@ -18,8 +13,7 @@ export default class PopupConfirm extends Popup{
   setEventListeners(){
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._formSubmit(this._cardId)
-      this.close()
+      this._formSubmit()
     })
     super.setEventListeners()
   }
