@@ -15,12 +15,11 @@ export default class Section {
 
   renderItems(initialCards){
     initialCards.forEach((item) => {
-      this._renderer(item, (element) => this.appendItem(element))
+      this._renderer(item);
     });
   };
 
   renderItemWithRenderer(item){
-    this._renderer(item, (element) => this.prependItem(element))
-
+    this._renderer(item);
   }
 }

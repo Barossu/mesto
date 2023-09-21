@@ -40,36 +40,40 @@ const api = new Api({
 
 let myId ='';
 
-const cardsSection = new Section({
-  renderer: (item, addCard) => {
-    const card = new Card(
-      item,
-      '#template',
-      (name, link) => placePopup.open(name, link),
-      (cardId, method) => {
-        api.toggleLike(cardId, method)
-          .then(res => card.updateLikes(res))
+function createCard(cardInfo){
+  const card = new Card(
+    cardInfo,
+    '#template',
+    (name, link) => placePopup.open(name, link),
+    (cardId, isLiked) => {
+      api.toggleLike(cardId, isLiked)
+        .then(res => card.updateLikes(res))
+        .catch(err => console.log(err));
+    },
+    () => {
+      return cardInfo.likes.some(item => {
+        return cardInfo._id === myId
+      })
+    },
+    (card) => {
+      removeCardPopup.open()
+      removeCardPopup.submitCallback(() => {
+        api.deleteCard(cardInfo._id)
+          .then(() => {
+            card.delete()
+            removeCardPopup.close()
+          })
           .catch(err => console.log(err));
-      },
-      () => {
-        return item.likes.some(item => {
-          return item._id === myId
-        })
-      },
-      (card) => {
-        removeCardPopup.open()
-        removeCardPopup.submitCallback(() => {
-          api.deleteCard(item._id)
-            .then(() => {
-              card.delete()
-              removeCardPopup.close()
-            })
-            .catch(err => console.log(err));
-        })
-      },
-      myId);
-    const cardElement = card.generateCard();
-    addCard(cardElement)
+      })
+    },
+    myId);
+  return card.generateCard();
+}
+
+const cardsSection = new Section({
+  renderer: (item) => {
+    const pop = createCard(item);
+    cardsSection.appendItem(pop)
   }
 }, '.elements')
 
@@ -92,12 +96,13 @@ const popupAddForm = new PopupWithForm('#popup-add-place', (InputValues) => {
   popupAddForm.setSubmitButtonText('Добавление...')
   api.postNewCard(InputValues)
     .then(newCard => {
-      cardsSection.renderItemWithRenderer(newCard)
+      const pop = createCard(newCard)
+      cardsSection.prependItem(pop)
       popupAddForm.close()
     })
     .catch(err => console.log(err))
     .finally(() => {
-      popupAddForm.returnSubmitButtonText()
+      popupAddForm.setDefaultSubmitButtonText()
     });
 });
 
@@ -173,7 +178,3 @@ profileFormValidator.enableValidation();
 
 const editAvatarPopupValidator = new FormValidator(validationConfig, editAvatarForm);
 editAvatarPopupValidator.enableValidation();
-
-
-
-//650b577d89bfd40c52928aaa

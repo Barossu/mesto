@@ -77,9 +77,9 @@ export default class Api {
     .then(res => this._getResponseData(res))
   };
 
-  toggleLike(cardId, isLIked){
+  toggleLike(cardId, isLiked){
     return fetch(`${this._baseURL}/cards/${cardId}/likes`, {
-      method: isLIked ? 'DELETE' : 'PUT',
+      method: isLiked ? 'DELETE' : 'PUT',
       headers:{
         authorization: this._key,
         'Content-Type': this._contentType
@@ -98,16 +98,4 @@ export default class Api {
     })
     .then(res => this._getResponseData(res))
   };
-
-
-  // fsf(cardId){
-  //   return fetch(`${this._baseURL}/cards/${cardId}/likes`, {
-  //     method: 'GET',
-  //     headers:{
-  //       authorization: this._key
-  //     }
-  //   })
-  //   .then(res => this._getResponseData(res))
-  //   .then(res => console.log(res))
-  // }
 }
