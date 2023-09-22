@@ -52,7 +52,7 @@ function createCard(cardInfo){
     },
     () => {
       return cardInfo.likes.some(item => {
-        return cardInfo._id === myId
+        return item._id === myId
       })
     },
     (card) => {
@@ -72,8 +72,8 @@ function createCard(cardInfo){
 
 const cardsSection = new Section({
   renderer: (item) => {
-    const pop = createCard(item);
-    cardsSection.appendItem(pop)
+    const card = createCard(item);
+    cardsSection.appendItem(card)
   }
 }, '.elements')
 
@@ -96,8 +96,8 @@ const popupAddForm = new PopupWithForm('#popup-add-place', (InputValues) => {
   popupAddForm.setSubmitButtonText('Добавление...')
   api.postNewCard(InputValues)
     .then(newCard => {
-      const pop = createCard(newCard)
-      cardsSection.prependItem(pop)
+      const card = createCard(newCard)
+      cardsSection.prependItem(card)
       popupAddForm.close()
     })
     .catch(err => console.log(err))
@@ -154,7 +154,7 @@ const popupEditAvatar = new PopupWithForm('#popup-avatar', (inputValues) => {
     })
     .catch(err => console.log(err))
     .finally(() => {
-      popupEditAvatar.returnSubmitButtonText()
+      popupEditAvatar.setDefaultSubmitButtonText()
     });
 })
 
