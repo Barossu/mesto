@@ -124,7 +124,7 @@ const popupEditForm = new PopupWithForm('#popup-edit-profile', (inputValues) => 
     })
     .catch(err => console.log(err))
     .finally(() => {
-      popupEditForm.returnSubmitButtonText()
+      popupEditForm.setDefaultSubmitButtonText()
     });
 });
 
